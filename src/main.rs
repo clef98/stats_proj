@@ -5,20 +5,17 @@ use std::io;
 
 fn main() {
     println!("Enter a filename: ");
-
     let mut filename = String::new();
     io::stdin()
         .read_line(&mut filename)
         .expect("Error with input.");
-
 
     println!("Enter a column name: ");
     let mut column_name = String::new();
     io::stdin()
         .read_line(&mut column_name)
         .expect("Error with input.");
-    let mut vector = vec![4,51,0,-3,0, 0,124,-3, -3, -3];
-
+    let mut vector = vec![4, 51, 0, -3, 0, 0, 124, -3, -3, -3];
 
     vector.sort();
     stat_func::summary(&vector);

@@ -1,5 +1,7 @@
 use std::collections::HashMap;
 
+//Reasoning for summary and percentile functions to print directly: abstraction from main,
+// otherwise would require loops and multiple calls to print the "equivalent" statistic.
 pub(crate) fn summary(data: &Vec<i32>) {
     let mut count = 1;
     let mut i = 1;
@@ -108,7 +110,7 @@ pub fn percentile(data: &Vec<i32>){
     println!("100th percentile = {}", perc_100);
 }
 
-/* IF PERCENTILES ARE USER INPUTTED
+/* IF PERCENTILES ARE USER INPUTTED (Not recommended)
 pub fn percentile_p(data: &Vec<i32>, p: f32){
     let mut perc = (p* (data.len() as f32)).floor();
     perc = data[perc as usize] as f32;
