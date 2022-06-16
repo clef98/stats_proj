@@ -5,7 +5,8 @@ use std::collections::HashMap;
 pub(crate) fn summary(data: &Vec<i32>) {
     let mut count = 1;
     let mut i = 1;
-    //Cannot retrieve length of frequencies
+    //Unique count is used because .len() breaks function. Function runs correctly,
+    //but can be optimized.
     let mut unique_count = 0;
     let mut frequencies: Vec<(i32, i32)> = Vec::new();
     while i < data.len() {
