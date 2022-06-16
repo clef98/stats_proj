@@ -1,4 +1,5 @@
 mod stat_func;
+
 use std::io;
 //use std::io::{BufRead};
 
@@ -16,20 +17,24 @@ fn main() {
     io::stdin()
         .read_line(&mut column_name)
         .expect("Error with input.");
-    let mut vector = vec![4,51,0,-3,0, 0,124,-3];
+    let mut vector = vec![4,51,0,-3,0, 0,124,-3, -3, -3];
 
 
     vector.sort();
     stat_func::summary(&vector);
-    stat_func::sum(&vector);
-/*playground
-    let file = std::fs::File::open(filename);
-    let read = BufReader::new(file);
-    let mut vector: Vec<i32> = Vec::new();
-    for value in read.lines() {
-        for s in value.split_whitespace() {
-            let s = s.parse();
-            vector.push(s);
-        }
-    }*/
+    println!("sum = {}", stat_func::sum(&vector));
+    println!("mean = {}", stat_func::mean(&vector));
+    println!("stdev = {}", stat_func::stdev(&vector));
+    println!("median = {}", stat_func::median(&vector));
+    println!("mode = {}", stat_func::mode(&vector));
+    /*playground
+        let file = std::fs::File::open(filename);
+        let read = BufReader::new(file);
+        let mut vector: Vec<i32> = Vec::new();
+        for value in read.lines() {
+            for s in value.split_whitespace() {
+                let s = s.parse();
+                vector.push(s);
+            }
+        }*/
 }
