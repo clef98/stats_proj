@@ -1,5 +1,4 @@
 mod stat_func;
-
 use std::io;
 //use std::io::{BufRead};
 
@@ -17,8 +16,12 @@ fn main() {
     io::stdin()
         .read_line(&mut column_name)
         .expect("Error with input.");
-    let vector = vec![4,51,0,-3,124];
+    let mut vector = vec![4,51,0,-3,0, 0,124,-3];
+
+
+    vector.sort();
     stat_func::summary(&vector);
+    stat_func::sum(&vector);
 /*playground
     let file = std::fs::File::open(filename);
     let read = BufReader::new(file);
