@@ -71,3 +71,46 @@ pub fn mode(data: &Vec<i32>) -> i32{
     }
     *frequencies.into_iter().max_by_key(|&(_, count) | count).map(|(val, _) | val).unwrap()
 }
+
+pub fn min(data: &Vec<i32>) -> i32{
+    let mut minimum: i32 = data[0];
+    for i in data{
+        if *i < minimum{
+            minimum = *i;
+        }
+    }
+    minimum
+}
+
+pub fn max(data: &Vec<i32>) -> i32{
+    let mut maximum: i32 = data[0];
+    for i in data{
+        if *i > maximum{
+            maximum = *i;
+        }
+    }
+    maximum
+}
+
+pub fn percentile(data: &Vec<i32>){
+    let perc_0 = data[0];
+    let mut perc = (0.25* (data.len() as f32)).floor();
+    let perc_25 = data[perc as usize];
+    perc = (0.5* (data.len() as f32)).floor();
+    let perc_50 = data[perc as usize];
+    perc = (0.75* (data.len() as f32)).floor();
+    let perc_75 = data[perc as usize];
+    let perc_100 = data[data.len()-1];
+    println!("  0th percentile = {}", perc_0);
+    println!(" 25th percentile = {}", perc_25);
+    println!(" 50th percentile = {}", perc_50);
+    println!(" 75th percentile = {}", perc_75);
+    println!("100th percentile = {}", perc_100);
+}
+
+/* IF PERCENTILES ARE USER INPUTTED
+pub fn percentile_p(data: &Vec<i32>, p: f32){
+    let mut perc = (p* (data.len() as f32)).floor();
+    perc = data[perc as usize] as f32;
+    println!("{} percentile = {}", p, perc);
+}*/
