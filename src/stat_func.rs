@@ -2,34 +2,30 @@ use std::collections::HashMap;
 
 //Reasoning for summary and percentile functions to print directly: abstraction from main,
 // otherwise would require loops and multiple calls to print the "equivalent" statistic.
-pub(crate) fn summary(data: &[i32]) {
+pub(crate) fn summary(data: &mut [i32]) {
+    data.sort();
     let mut count = 1;
     let mut i = 1;
-    //Unique count is used because .len() breaks function. Function runs correctly,
-    //but can be optimized.
-    let mut unique_count = 0;
-    let mut frequencies: Vec<(i32, i32)> = Vec::new();
+    let mut frequencies: Vec<(i32, u32)> = Vec::new();
     while i < data.len() {
         if data[i] == data[i - 1] {
             count = count + 1;
         } else {
             frequencies.push((data[i - 1], count));
             count = 1;
-            unique_count = unique_count + 1;
         }
         if i == data.len() - 1 {
             frequencies.push((data[i], count));
-            unique_count = unique_count + 1;
         }
         i = i + 1;
     }
-    let unique = frequencies.len() - 1;
+    let unique_count = frequencies.len() - 1;
     println!("Summary (value: frequency)");
     for j in frequencies {
         println!("{}: {}", j.0, j.1);
     }
     println!();
-    println!("count = {}", unique);
+    println!("count = {}", unique_count);
 }
 
 pub fn sum(data: &[i32]) -> i32{
@@ -59,7 +55,8 @@ pub fn stdev(data: &[i32]) -> f32{
     ssd_root
 }
 
-pub fn median(data: &[i32]) -> f32{
+pub fn median(data: &mut [i32]) -> f32{
+    data.sort();
     let median: f32;
     if data.len() % 2 == 1{
         median = data[(data.len()-1)/2] as f32;
@@ -98,7 +95,8 @@ pub fn max(data: &[i32]) -> i32{
     maximum
 }
 
-pub fn percentile(data: &[i32]){
+pub fn percentile(data: &mut [i32]){
+    data.sort();
     let perc_0 = data[0];
     let mut perc = (0.25* (data.len() as f32)).floor();
     let perc_25 = data[perc as usize];

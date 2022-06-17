@@ -30,15 +30,13 @@ fn main() {
             vector.push(s.parse::<i32>().unwrap());
         }
     }
-
-        vector.sort();
-        stat_func::summary(&vector);
+        stat_func::summary(&mut vector);
         println!("sum = {}", stat_func::sum(&vector));
         println!("mean = {}", stat_func::mean(&vector));
         println!("stdev = {}", stat_func::stdev(&vector));
-        println!("median = {}", stat_func::median(&vector));
+        println!("median = {}", stat_func::median(&mut vector));
         println!("mode = {}", stat_func::mode(&vector));
         println!("min = {}", stat_func::min(&vector));
         println!("max = {}", stat_func::max(&vector));
-        stat_func::percentile(&vector);
+        stat_func::percentile(&mut vector);
     }
