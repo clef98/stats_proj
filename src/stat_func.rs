@@ -52,7 +52,8 @@ pub fn stdev(data: &Vec<i32>) -> f32{
     for i in data{
         ssd += (*i as f32 - mean).powf(2.0);
     }
-    let mut ssd_root: f32 = ssd / data.len() as f32;
+    //N-1 used, N is also a common formula for standard deviation.
+    let mut ssd_root: f32 = ssd / (data.len() - 1) as f32;
     ssd_root = ssd_root.sqrt();
     ssd_root
 }
@@ -62,11 +63,12 @@ pub fn median(data: &Vec<i32>) -> f32{
     if data.len() % 2 == 1{
         median = data[(data.len()-1)/2] as f32;
     } else{
-        median = ((data[(data.len()-1)/2] + data[(data.len()-1)/2-1] )/2) as f32;
+        median = (data[(data.len())/2] + data[(data.len())/2 - 1] ) as f32 /2.0;
     }
     median
 }
 
+//In the event of a tie, the first mode that appears in the vector is select.
 pub fn mode(data: &Vec<i32>) -> i32{
     let mut frequencies = HashMap::new();
     for i in data{

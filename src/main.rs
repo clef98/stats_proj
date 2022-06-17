@@ -1,4 +1,6 @@
 mod stat_func;
+mod tests;
+
 
 use std::io;
 use std::io::Read;
