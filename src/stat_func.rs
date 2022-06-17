@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 //Reasoning for summary and percentile functions to print directly: abstraction from main,
 // otherwise would require loops and multiple calls to print the "equivalent" statistic.
-pub(crate) fn summary(data: &Vec<i32>) {
+pub(crate) fn summary(data: &[i32]) {
     let mut count = 1;
     let mut i = 1;
     //Unique count is used because .len() breaks function. Function runs correctly,
@@ -23,15 +23,16 @@ pub(crate) fn summary(data: &Vec<i32>) {
         }
         i = i + 1;
     }
+    let unique = frequencies.len() - 1;
     println!("Summary (value: frequency)");
     for j in frequencies {
         println!("{}: {}", j.0, j.1);
     }
     println!();
-    println!("count = {}", unique_count);
+    println!("count = {}", unique);
 }
 
-pub fn sum(data: &Vec<i32>) -> i32{
+pub fn sum(data: &[i32]) -> i32{
     let mut summation = 0;
     for i in data{
         summation = summation + *i;
@@ -39,14 +40,14 @@ pub fn sum(data: &Vec<i32>) -> i32{
     summation
 }
 
-pub fn mean(data: &Vec<i32>) -> f32{
+pub fn mean(data: &[i32]) -> f32{
     let summation = sum(&data);
     let size: f32 = data.len() as f32;
     let mean:f32 = summation as f32 / size;
     mean
 }
 
-pub fn stdev(data: &Vec<i32>) -> f32{
+pub fn stdev(data: &[i32]) -> f32{
     let mut ssd: f32 = 0.0;
     let mean = mean(&data);
     for i in data{
@@ -58,7 +59,7 @@ pub fn stdev(data: &Vec<i32>) -> f32{
     ssd_root
 }
 
-pub fn median(data: &Vec<i32>) -> f32{
+pub fn median(data: &[i32]) -> f32{
     let median: f32;
     if data.len() % 2 == 1{
         median = data[(data.len()-1)/2] as f32;
@@ -69,7 +70,7 @@ pub fn median(data: &Vec<i32>) -> f32{
 }
 
 //In the event of a tie, the first mode that appears in the vector is select.
-pub fn mode(data: &Vec<i32>) -> i32{
+pub fn mode(data: &[i32]) -> i32{
     let mut frequencies = HashMap::new();
     for i in data{
         *frequencies.entry(i).or_insert(0)+=1;
@@ -77,7 +78,7 @@ pub fn mode(data: &Vec<i32>) -> i32{
     *frequencies.into_iter().max_by_key(|&(_, count) | count).map(|(val, _) | val).unwrap()
 }
 
-pub fn min(data: &Vec<i32>) -> i32{
+pub fn min(data: &[i32]) -> i32{
     let mut minimum: i32 = data[0];
     for i in data{
         if *i < minimum{
@@ -87,7 +88,7 @@ pub fn min(data: &Vec<i32>) -> i32{
     minimum
 }
 
-pub fn max(data: &Vec<i32>) -> i32{
+pub fn max(data: &[i32]) -> i32{
     let mut maximum: i32 = data[0];
     for i in data{
         if *i > maximum{
@@ -97,7 +98,7 @@ pub fn max(data: &Vec<i32>) -> i32{
     maximum
 }
 
-pub fn percentile(data: &Vec<i32>){
+pub fn percentile(data: &[i32]){
     let perc_0 = data[0];
     let mut perc = (0.25* (data.len() as f32)).floor();
     let perc_25 = data[perc as usize];
@@ -114,7 +115,7 @@ pub fn percentile(data: &Vec<i32>){
 }
 
 /* IF PERCENTILES ARE USER INPUTTED (Not recommended)
-pub fn percentile_p(data: &Vec<i32>, p: f32){
+pub fn percentile_p(data: &[i32], p: f32){
     let mut perc = (p* (data.len() as f32)).floor();
     perc = data[perc as usize] as f32;
     println!("{} percentile = {}", p, perc);

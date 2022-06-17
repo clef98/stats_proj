@@ -18,9 +18,8 @@ fn main() {
         .read_line(&mut column_name)
         .expect("Error with input.");
 
-    print!("Reading column {} from {}", column_name, filename);
+    println!("Reading column {} from {}", column_name.trim(), filename);
     let mut vector:Vec<i32> = Vec::new();
-    print!("Name: {}", filename);
     let name: &str = &filename;
     let mut file = std::fs::File::open(name).unwrap();
 
